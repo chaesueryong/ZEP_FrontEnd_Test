@@ -1,0 +1,47 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.input-box {
+    display: flex;
+    gap: 10px;
+}
+
+.render-box {
+    display: flex;
+    gap: 20px;
+    padding: 30px;
+}
+
+.input-floor, .input-count {
+    width: 30px;
+}
+
+.floor {
+    display: flex;
+    gap: 20px;
+}
+
+.floor-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.elevator-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.elevator {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+.generate-btn {
+    cursor: pointer;
+}
