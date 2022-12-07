@@ -41,7 +41,6 @@ const setElevator = (col, row) => {
 
 // 이벤트
 const setEvent = () => {
-    renderElevator();
     generateBtnEl.addEventListener('click', renderElevator);
 }
 
