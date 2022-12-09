@@ -51,7 +51,6 @@ const setElevator = (row, col) => {
     // 같은 층에 열려있는지 체크
     for(let i = 1; i <= count; i++){
         if(elevatorObj[`${row + '_' + i}`] === 'wait'){
-            console.log('같은 층에 한개가 열려있다');
             return;
         }
     }
@@ -75,46 +74,62 @@ const setElevator = (row, col) => {
     let distance = floor;
     for(let i = 1; i <= floor; i++){
         for(let j = 1; j <= count; j++){
-            const elevatorStatus = elevatorObj[`${i + '_' + j}`];
-            if(elevatorStatus === 'stop'){
-                console.log(row, i, j, nearRow)
+            if(elevatorObj[`${i + '_' + j}`] === 'stop'){
+                // console.log(row, i, j, nearRow)
                 nearRow = distance > Math.abs(row - i) ? i : nearRow;
                 distance = Math.abs(row - i);
             }
         }
     }
 
-    console.log(nearRow);
+    // console.log('nearRow', nearRow);
+    // console.log(row, col);
+    // 누른 엘레베이터에서 가장 가까운게 있는지, 있으면 이동
+    if(elevatorObj[`${nearRow + '_' + col}`] === 'stop'){
+        moveElevator(nearRow, col, row);
+        return;
+    }
 
     // 가장 가까운 층에 있는 엘레베이터 이동
     for(let i = 1; i <= count; i++){
         let elevatorStatus = elevatorObj[`${nearRow + '_' + i}`];
 
         if(elevatorStatus === 'stop'){
-            elevatorObj[`${nearRow + '_' + i}`] = 'move';
-            updateElevator();
-
-            setTimeout(() => {
-                elevatorObj[`${nearRow + '_' + i}`] = 'empty';
-                elevatorObj[`${nearRow + 1 + '_' + i}`] = 'wait';
-                updateElevator();
-                setTimeout(() => {
-                    elevatorObj[`${nearRow + 1 + '_' + i}`] = 'stop';
-                    updateElevator();
-                }, 2000);
-            }, 1000);
+            moveElevator(nearRow, i, row);
             return;
         }
     }
 }
 
 const openElevator = (row, col) => {
+    document.querySelector(`.elevator_${row + '_' + col}`).style.pointerEvents  = 'none';
     elevatorObj[`${row + '_' + col}`] = 'wait';
     updateElevator();
     setTimeout(() => {
+        document.querySelector(`.elevator_${row + '_' + col}`).style.pointerEvents  = 'auto';
         elevatorObj[`${row + '_' + col}`] = 'stop';
         updateElevator();
     }, 2000);
+}
+
+const moveElevator = (currentRow, currentCol, destinationRow) => {
+    if(currentRow === destinationRow){
+        openElevator(currentRow, currentCol);
+        return;
+    }
+
+    elevatorObj[`${currentRow + '_' + currentCol}`] = 'move';
+    updateElevator();
+
+    setTimeout(() => {
+        elevatorObj[`${currentRow + '_' + currentCol}`] = 'empty';
+
+        if(currentRow < destinationRow){
+            moveElevator(currentRow + 1, currentCol, destinationRow);
+        }else{
+            moveElevator(currentRow - 1, currentCol, destinationRow);
+        }
+    }, 1000);
 }
 
 const updateElevator = () => {
