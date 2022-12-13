@@ -2,22 +2,22 @@
 
 - 노드 모듈 설치
 
-    ```
-    npm install
-    ```
+```
+npm install
+```
 
 <br>
 <br>
 
 - Express 서버 시작
 
-    ```
-    npm start
-    ```
+```
+npm start
+```
 <br>
 
 
-
+# 접속 및 설명
 - http://localhost:3000/ 로 접속합니다.
 
 - 입력창에 층수랑 엘레베이터 수를 입력합니다.
