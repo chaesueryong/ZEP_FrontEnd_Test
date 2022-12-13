@@ -18,6 +18,19 @@ html, body {
     width: 30px;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.floor {
+    border: 1px solid black;
+    padding: 5px 10px;
+    border-radius: 500px;
+    font-size: 14px;
+}
+
 .floor-row {
     display: flex;
     gap: 20px;
@@ -40,6 +53,10 @@ html, body {
     background-color: white;
     border: 1px solid gray;
     cursor: pointer;
+}
+
+.elevator:hover {
+    background-color: #b8b8b8;
 }
 
 .generate-btn {
